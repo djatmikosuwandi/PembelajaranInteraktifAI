@@ -1,0 +1,629 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  BookOpen, BrainCircuit, Clock, ChevronRight, CheckCircle2, 
+  Lightbulb, Network, Presentation, Search, Award, Cpu, MessagesSquare, FileText
+} from 'lucide-react';
+
+export default function App() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showResult, setShowResult] = useState(false);
+  const [showCertificate, setShowCertificate] = useState(false);
+
+  // Track scroll for progress bar
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollTop;
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scroll = `${totalScroll / windowHeight}`;
+      setScrollProgress(scroll * 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const quizQuestions = [
+    {
+      question: "Apa inovasi utama yang diperkenalkan dalam paper 'Attention is All You Need' (2017)?",
+      options: [
+        "Penggunaan Convolutional Neural Networks untuk teks",
+        "Mekanisme Self-Attention yang menggantikan arsitektur RNN/LSTM",
+        "Pengenalan sistem pakar (Expert Systems) berbasis aturan",
+        "Penciptaan istilah 'Artificial Intelligence'"
+      ],
+      correct: 1
+    },
+    {
+      question: "Mengapa arsitektur Transformer dianggap lebih skalabel dibandingkan model sebelumnya?",
+      options: [
+        "Karena hanya membutuhkan sedikit data latih",
+        "Karena model memproses kata secara berurutan (sekuensial)",
+        "Karena memungkinkan komputasi paralel yang sangat efisien pada GPU",
+        "Karena tidak menggunakan mekanisme Attention sama sekali"
+      ],
+      correct: 2
+    },
+    {
+      question: "Model bahasa mana yang pertama kali mempopulerkan penggunaan arsitektur Transformer secara luas?",
+      options: ["ELIZA", "Word2Vec", "BERT & GPT", "Deep Blue"],
+      correct: 2
+    },
+    {
+      question: "Periode di mana pendanaan dan ketertarikan riset AI menurun drastis karena ekspektasi yang tidak realistis disebut:",
+      options: ["AI Summer", "The Turing Test", "AI Winter", "The Dartmouth Conference"],
+      correct: 2
+    },
+    {
+      question: "Fungsi utama dari model Generative AI seperti ChatGPT adalah...",
+      options: [
+        "Hanya mengklasifikasikan gambar",
+        "Menghasilkan teks baru berdasarkan probabilitas statistik dari data latih",
+        "Menyimpan semua jawaban di dalam sebuah database statis",
+        "Mendeteksi spam pada email"
+      ],
+      correct: 1
+    }
+  ];
+
+  const handleAnswer = (index) => {
+    if (index === quizQuestions[currentQuestion].correct) {
+      setScore(score + 1);
+    }
+    
+    if (currentQuestion + 1 < quizQuestions.length) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      setShowResult(true);
+    }
+  };
+
+  const resetQuiz = () => {
+    setCurrentQuestion(0);
+    setScore(0);
+    setShowResult(false);
+    setQuizStarted(false);
+    setShowCertificate(false);
+  };
+
+  const ReflectionBox = ({ title, children }) => (
+    <div className="bg-blue-50/80 border-l-4 border-blue-600 p-6 rounded-r-xl my-8 shadow-sm">
+      <div className="flex items-center gap-2 mb-3 text-blue-800 font-semibold">
+        <Lightbulb className="w-5 h-5" />
+        <h4 className="text-lg">{title || "Refleksi Kritis"}</h4>
+      </div>
+      <div className="text-slate-700 italic">{children}</div>
+      <div className="mt-4 flex gap-3">
+        <button className="text-sm bg-white border border-blue-200 text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors flex items-center gap-2 font-medium">
+          <MessagesSquare className="w-4 h-4" /> Diskusi Kelas
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="font-sans text-slate-800 bg-slate-50 min-h-screen">
+      {/* Sticky Navbar */}
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm z-50 transition-all">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2 font-bold text-xl text-blue-900">
+            <BrainCircuit className="w-7 h-7 text-blue-600" />
+            <span>EduAI<span className="text-blue-600">.</span></span>
+          </div>
+          <div className="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+            <button onClick={() => scrollToSection('sejarah')} className="hover:text-blue-600 transition-colors">Sejarah</button>
+            <button onClick={() => scrollToSection('transformer')} className="hover:text-blue-600 transition-colors">Transformer</button>
+            <button onClick={() => scrollToSection('llm')} className="hover:text-blue-600 transition-colors">Evolusi LLM</button>
+            <button onClick={() => scrollToSection('tugas')} className="hover:text-blue-600 transition-colors">Tugas</button>
+            <button onClick={() => scrollToSection('kuis')} className="text-blue-600 font-semibold">Kuis Evaluasi</button>
+          </div>
+        </div>
+        {/* Progress Bar */}
+        <div className="h-1 bg-slate-100 w-full">
+          <div 
+            className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-150 ease-out"
+            style={{ width: `${scrollProgress}%` }}
+          />
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <header id="hero" className="pt-32 pb-24 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white min-h-[90vh] flex items-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 to-indigo-900/50 z-0"></div>
+        {/* Abstract shapes */}
+        <div className="absolute top-20 right-10 w-64 h-64 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+        <div className="absolute bottom-10 left-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <div className="inline-block px-4 py-1.5 rounded-full bg-blue-800/50 border border-blue-500/30 text-blue-200 font-medium text-sm mb-6 backdrop-blur-sm">
+            Modul Pembelajaran Interaktif AI - Pertemuan 1
+          </div>
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+            Perkembangan Artificial Intelligence <br/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">
+              dari Masa ke Masa
+            </span>
+          </h1>
+          <p className="text-xl md:text-2xl text-slate-300 mb-4 font-light">
+            Dari Rule-Based System hingga Large Language Models
+          </p>
+          <p className="text-base md:text-lg text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Eksplorasi komprehensif mengenai sejarah, landasan teoretis, dan arsitektur teknis yang mendorong revolusi kecerdasan buatan modern. Dirancang khusus untuk kajian teknologi pendidikan.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <button 
+              onClick={() => scrollToSection('sejarah')}
+              className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3.5 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-900/20"
+            >
+              Mulai Belajar <ChevronRight className="w-5 h-5" />
+            </button>
+            <button 
+              onClick={() => scrollToSection('tugas')}
+              className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white px-8 py-3.5 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all"
+            >
+              Persiapan Presentasi
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-32">
+        
+        {/* SECTION 1 - Sejarah AI */}
+        <section id="sejarah" className="scroll-mt-24">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Sejarah Perkembangan AI</h2>
+            <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
+            <p className="text-slate-600 mt-4 max-w-2xl mx-auto">Memahami landasan konseptual AI melalui rentang waktu, dari sekadar konsep teoretis hingga implementasi praktis.</p>
+          </div>
+
+          <div className="relative border-l-2 border-blue-200 ml-3 md:ml-6 space-y-12 pb-8">
+            {/* Timeline Item 1 */}
+            <div className="relative pl-8 md:pl-0">
+              <div className="md:w-1/2 md:pr-12 md:text-right relative">
+                <div className="absolute left-[-41px] md:left-auto md:right-[-9px] top-1 w-5 h-5 rounded-full bg-blue-600 border-4 border-white shadow"></div>
+                <h3 className="text-xl font-bold text-blue-900">1950: Alan Turing & Turing Test</h3>
+                <p className="text-slate-600 mt-2 text-sm leading-relaxed">Alan Turing mempublikasikan "Computing Machinery and Intelligence", mengajukan pertanyaan fundamental: "Dapatkah mesin berpikir?". Turing Test menjadi standar awal evaluasi kecerdasan mesin.</p>
+              </div>
+            </div>
+
+            {/* Timeline Item 2 */}
+            <div className="relative pl-8 md:pl-0">
+              <div className="md:w-1/2 md:pl-12 md:ml-auto relative">
+                <div className="absolute left-[-41px] md:left-[-9px] top-1 w-5 h-5 rounded-full bg-indigo-600 border-4 border-white shadow"></div>
+                <h3 className="text-xl font-bold text-indigo-900">1956: Dartmouth Conference</h3>
+                <p className="text-slate-600 mt-2 text-sm leading-relaxed">John McCarthy, Marvin Minsky, Nathaniel Rochester, dan Claude Shannon menyelenggarakan lokakarya di Dartmouth College. Istilah "Artificial Intelligence" pertama kali dicetuskan secara resmi di sini.</p>
+              </div>
+            </div>
+
+            {/* Timeline Item 3 */}
+            <div className="relative pl-8 md:pl-0">
+              <div className="md:w-1/2 md:pr-12 md:text-right relative">
+                <div className="absolute left-[-41px] md:left-auto md:right-[-9px] top-1 w-5 h-5 rounded-full bg-blue-500 border-4 border-white shadow"></div>
+                <h3 className="text-xl font-bold text-blue-900">1980-an: Era Expert System</h3>
+                <p className="text-slate-600 mt-2 text-sm leading-relaxed">Fokus beralih ke "Sistem Pakar" berbasis aturan (Rule-based) yang mensimulasikan kemampuan pengambilan keputusan manusia spesifik dalam domain tertentu (misal: diagnosis medis).</p>
+              </div>
+            </div>
+
+            {/* Timeline Item 4 */}
+            <div className="relative pl-8 md:pl-0">
+              <div className="md:w-1/2 md:pl-12 md:ml-auto relative">
+                <div className="absolute left-[-41px] md:left-[-9px] top-1 w-5 h-5 rounded-full bg-indigo-500 border-4 border-white shadow"></div>
+                <h3 className="text-xl font-bold text-indigo-900">2010-an: Kebangkitan Deep Learning</h3>
+                <p className="text-slate-600 mt-2 text-sm leading-relaxed">Ketersediaan Big Data dan kekuatan komputasi (GPU) memungkinkan Jaringan Saraf Tiruan mendalam (Deep Neural Networks) berkembang pesat, mendominasi bidang Computer Vision dan NLP.</p>
+              </div>
+            </div>
+
+            {/* Timeline Item 5 */}
+            <div className="relative pl-8 md:pl-0">
+              <div className="md:w-1/2 md:pr-12 md:text-right relative">
+                <div className="absolute left-[-41px] md:left-auto md:right-[-9px] top-1 w-5 h-5 rounded-full bg-blue-700 border-4 border-white shadow"></div>
+                <h3 className="text-xl font-bold text-blue-900">Sekarang: Era Generative AI</h3>
+                <p className="text-slate-600 mt-2 text-sm leading-relaxed">Dominasi arsitektur Transformer melahirkan Large Language Models (LLM) seperti GPT, BERT, dan LLaMA yang mampu melakukan penalaran, generalisasi, dan interaksi multimodal.</p>
+              </div>
+            </div>
+          </div>
+
+          <ReflectionBox title="Refleksi Sejarah">
+            "Sepanjang sejarahnya, perkembangan AI pernah mengalami beberapa fase <strong>'AI Winter'</strong> (musim dingin AI), yaitu periode di mana pendanaan dan ketertarikan publik menurun drastis. Menurut Anda, berdasarkan pola sejarah tersebut, apa yang menyebabkan terjadinya AI Winter, dan apakah kita mungkin menghadapinya lagi di masa depan?"
+          </ReflectionBox>
+        </section>
+
+        {/* SECTION 2 - Attention is All You Need */}
+        <section id="transformer" className="scroll-mt-24">
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+            <div className="bg-slate-900 px-8 py-10 text-white relative overflow-hidden">
+              <div className="absolute right-0 top-0 opacity-10">
+                <Network className="w-64 h-64 -mt-10 -mr-10" />
+              </div>
+              <h2 className="text-sm font-semibold text-blue-400 tracking-wider uppercase mb-2">Penelitian Penting (2017)</h2>
+              <h3 className="text-3xl font-bold mb-4">"Attention is All You Need"</h3>
+              <p className="text-slate-300 max-w-2xl leading-relaxed">
+                Sebuah paper dari peneliti Google yang secara radikal mengubah arah pemrosesan bahasa alami (NLP) dengan memperkenalkan arsitektur <strong className="text-white">Transformer</strong>.
+              </p>
+              <button className="mt-6 text-sm bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-lg flex items-center gap-2 transition-all">
+                <FileText className="w-4 h-4" /> Baca Jurnal Asli (Vaswani et al.)
+              </button>
+            </div>
+            
+            <div className="p-8">
+              <div className="grid md:grid-cols-2 gap-10">
+                <div>
+                  <h4 className="text-xl font-bold text-slate-900 mb-3 border-b pb-2">Latar Belakang Masalah</h4>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                    Sebelum 2017, pemrosesan teks didominasi oleh <strong>RNN (Recurrent Neural Networks)</strong> dan <strong>LSTM</strong>. Kelemahan utamanya adalah pemrosesan harus dilakukan secara berurutan (kata per kata). Hal ini menyebabkan lambatnya proses pelatihan (training) dan kesulitan dalam memahami konteks jarak jauh dalam kalimat yang panjang.
+                  </p>
+                  
+                  <h4 className="text-xl font-bold text-slate-900 mb-3 border-b pb-2">Mekanisme Self-Attention</h4>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                    Transformer mengeliminasi kebutuhan proses berurutan dengan menggunakan mekanisme <em>Self-Attention</em>. Mekanisme ini memungkinkan model untuk melihat seluruh kata dalam kalimat secara bersamaan dan menimbang (memberi bobot) seberapa penting hubungan satu kata dengan kata lainnya, tidak peduli seberapa jauh jaraknya.
+                  </p>
+                </div>
+                
+                <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                  <h4 className="font-bold text-slate-800 mb-4 text-center">Diagram Sederhana Transformer</h4>
+                  {/* CSS Diagram of Transformer */}
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-full text-center py-2 bg-blue-100 text-blue-800 rounded font-medium text-xs">Inputs / Teks</div>
+                    <div className="h-4 w-0.5 bg-slate-300"></div>
+                    <div className="w-full border-2 border-slate-300 p-3 rounded-lg bg-white relative">
+                      <span className="absolute -left-3 -rotate-90 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400 tracking-widest uppercase">Encoder</span>
+                      <div className="w-full bg-indigo-100 text-indigo-800 text-xs py-2 text-center rounded mb-2">Self-Attention</div>
+                      <div className="w-full bg-slate-100 text-slate-700 text-xs py-2 text-center rounded">Feed Forward Neural Net</div>
+                    </div>
+                    <div className="h-4 w-0.5 bg-slate-300"></div>
+                    <div className="w-full border-2 border-slate-300 p-3 rounded-lg bg-white relative">
+                      <span className="absolute -left-3 -rotate-90 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400 tracking-widest uppercase">Decoder</span>
+                      <div className="w-full bg-indigo-100 text-indigo-800 text-xs py-2 text-center rounded mb-2">Masked Self-Attention</div>
+                      <div className="w-full bg-blue-100 text-blue-800 text-xs py-2 text-center rounded mb-2">Encoder-Decoder Attention</div>
+                      <div className="w-full bg-slate-100 text-slate-700 text-xs py-2 text-center rounded">Feed Forward Neural Net</div>
+                    </div>
+                    <div className="h-4 w-0.5 bg-slate-300"></div>
+                    <div className="w-full text-center py-2 bg-green-100 text-green-800 rounded font-medium text-xs">Output Probabilities</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10">
+                <h4 className="text-lg font-bold text-slate-900 mb-4">Mengapa ini menjadi Tonggak Sejarah?</h4>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  <div className="p-4 border border-slate-100 bg-white shadow-sm rounded-lg">
+                    <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded flex items-center justify-center mb-3 font-bold">1</div>
+                    <h5 className="font-semibold text-sm mb-2">Efisiensi Paralelisasi</h5>
+                    <p className="text-xs text-slate-600">Tanpa RNN, perhitungan dapat diparalelisasi sepenuhnya di GPU. Mengurangi waktu pelatihan secara drastis.</p>
+                  </div>
+                  <div className="p-4 border border-slate-100 bg-white shadow-sm rounded-lg">
+                    <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded flex items-center justify-center mb-3 font-bold">2</div>
+                    <h5 className="font-semibold text-sm mb-2">Skalabilitas Besar</h5>
+                    <p className="text-xs text-slate-600">Arsitektur ini dapat diskalakan ke miliaran parameter tanpa kehilangan stabilitas (melahirkan LLM raksasa).</p>
+                  </div>
+                  <div className="p-4 border border-slate-100 bg-white shadow-sm rounded-lg">
+                    <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded flex items-center justify-center mb-3 font-bold">3</div>
+                    <h5 className="font-semibold text-sm mb-2">Fondasi GPT & BERT</h5>
+                    <p className="text-xs text-slate-600">Menjadi basis bagi model pemahaman bahasa (BERT) dan generasi teks (GPT series) yang merevolusi AI modern.</p>
+                  </div>
+                </div>
+              </div>
+
+              <ReflectionBox title="Critical Thinking">
+                "Jika arsitektur Transformer tidak pernah ditemukan pada tahun 2017, menurut Anda apakah Large Language Models (seperti ChatGPT) akan tetap bisa berkembang pesat dan populer seperti saat ini hanya dengan mengandalkan arsitektur RNN/LSTM yang dioptimasi?"
+              </ReflectionBox>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 3 - Perkembangan LLM */}
+        <section id="llm" className="scroll-mt-24">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Evolusi Large Language Models (LLM)</h2>
+            <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
+            <p className="text-slate-600 mt-4 max-w-2xl mx-auto">Pergeseran paradigma dari sistem berbasis aturan (Rule-based) ke pemodelan statistik, deep learning, hingga arsitektur generatif modern.</p>
+          </div>
+
+          {/* Cards Progression */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+            {['ELIZA (1966)', 'Word2Vec (2013)', 'Seq2Seq (2014)', 'Transformer (2017)', 'BERT (2018)', 'GPT-2 (2019)', 'GPT-3 (2020)', 'GPT-4 & LLaMA (2023+)'].map((item, idx) => (
+              <div key={idx} className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm text-center relative overflow-hidden group hover:border-blue-400 transition-colors">
+                <div className="absolute top-0 left-0 w-full h-1 bg-slate-100 group-hover:bg-blue-500 transition-colors"></div>
+                <Cpu className="w-6 h-6 mx-auto mb-2 text-slate-400 group-hover:text-blue-500 transition-colors" />
+                <span className="text-sm font-semibold text-slate-700">{item}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
+            <table className="w-full text-left border-collapse min-w-[600px]">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-200">
+                  <th className="py-4 px-6 font-semibold text-slate-700 text-sm">Model</th>
+                  <th className="py-4 px-6 font-semibold text-slate-700 text-sm">Tahun</th>
+                  <th className="py-4 px-6 font-semibold text-slate-700 text-sm">Arsitektur Dasar</th>
+                  <th className="py-4 px-6 font-semibold text-slate-700 text-sm">Kontribusi / Inovasi Utama</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm text-slate-600">
+                <tr className="border-b border-slate-100 hover:bg-slate-50/50">
+                  <td className="py-3 px-6 font-medium text-slate-900">ELIZA</td>
+                  <td className="py-3 px-6">1966</td>
+                  <td className="py-3 px-6">Rule-based (Pattern Matching)</td>
+                  <td className="py-3 px-6">Chatbot pertama, mendemonstrasikan pemrosesan bahasa natural primitif.</td>
+                </tr>
+                <tr className="border-b border-slate-100 hover:bg-slate-50/50">
+                  <td className="py-3 px-6 font-medium text-slate-900">Word2Vec</td>
+                  <td className="py-3 px-6">2013</td>
+                  <td className="py-3 px-6">Shallow Neural Network</td>
+                  <td className="py-3 px-6">Merepresentasikan kata sebagai vektor numerik (Word Embeddings) secara efisien.</td>
+                </tr>
+                <tr className="border-b border-slate-100 hover:bg-slate-50/50">
+                  <td className="py-3 px-6 font-medium text-slate-900">BERT</td>
+                  <td className="py-3 px-6">2018</td>
+                  <td className="py-3 px-6">Transformer (Encoder-only)</td>
+                  <td className="py-3 px-6">Pemahaman konteks dua arah (Bidirectional) untuk tugas pemahaman bacaan.</td>
+                </tr>
+                <tr className="border-b border-slate-100 hover:bg-slate-50/50">
+                  <td className="py-3 px-6 font-medium text-slate-900">GPT-3</td>
+                  <td className="py-3 px-6">2020</td>
+                  <td className="py-3 px-6">Transformer (Decoder-only)</td>
+                  <td className="py-3 px-6">Skalabilitas masif (175B parameter), mempopulerkan kemampaun Few-Shot learning.</td>
+                </tr>
+                <tr className="border-b border-slate-100 hover:bg-slate-50/50">
+                  <td className="py-3 px-6 font-medium text-slate-900">LLaMA 3 / Mistral</td>
+                  <td className="py-3 px-6">Modern</td>
+                  <td className="py-3 px-6">Optimized Transformer</td>
+                  <td className="py-3 px-6">Demokratisasi AI dengan performa tinggi namun efisien secara parameter (Open-Source).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* SECTION 4 - Preview Minggu Depan */}
+        <section className="bg-slate-900 text-white rounded-2xl p-8 md:p-12 relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+          <div className="relative z-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">Minggu Depan: AI Model Landscape</h2>
+            <p className="text-slate-300 mb-8 max-w-2xl text-sm leading-relaxed">Persiapkan diri Anda untuk mengeksplorasi ragam spesialisasi model AI di luar pemrosesan teks. Kita akan mempelajari bagaimana AI "melihat", "mendengar", dan "belajar dari lingkungan".</p>
+            
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-slate-800/50 border border-slate-700 p-5 rounded-xl hover:bg-slate-800 transition-colors">
+                <Search className="w-8 h-8 text-blue-400 mb-3" />
+                <h3 className="font-semibold text-sm mb-1">Computer Vision</h3>
+                <p className="text-xs text-slate-400">CNN, ResNet, YOLO. Bagaimana AI memproses data visual.</p>
+              </div>
+              <div className="bg-slate-800/50 border border-slate-700 p-5 rounded-xl hover:bg-slate-800 transition-colors">
+                <Layers className="w-8 h-8 text-purple-400 mb-3" />
+                <h3 className="font-semibold text-sm mb-1">Multimodal</h3>
+                <p className="text-xs text-slate-400">Model yang mengolah teks, gambar, dan suara sekaligus (GPT-4V).</p>
+              </div>
+              <div className="bg-slate-800/50 border border-slate-700 p-5 rounded-xl hover:bg-slate-800 transition-colors">
+                <Sparkles className="w-8 h-8 text-pink-400 mb-3" />
+                <h3 className="font-semibold text-sm mb-1">Diffusion Models</h3>
+                <p className="text-xs text-slate-400">Midjourney, Stable Diffusion. Generasi gambar dari teks.</p>
+              </div>
+              <div className="bg-slate-800/50 border border-slate-700 p-5 rounded-xl hover:bg-slate-800 transition-colors">
+                <Gamepad2 className="w-8 h-8 text-green-400 mb-3" />
+                <h3 className="font-semibold text-sm mb-1">Reinforcement</h3>
+                <p className="text-xs text-slate-400">RLHF, AlphaGo. Pembelajaran berbasis reward & environment.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION TUGAS */}
+        <section id="tugas" className="scroll-mt-24">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-3xl p-8 md:p-12 shadow-sm">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="bg-blue-600 text-white p-3 rounded-lg shadow-md">
+                <Presentation className="w-8 h-8" />
+              </div>
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900">Tugas Individu</h2>
+                <p className="text-blue-700 font-medium">Presentasi Akademik 5 Menit</p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-white mb-8">
+              <h3 className="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-green-500" /> Instruksi Pengerjaan
+              </h3>
+              <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600">
+                <li>Setiap mahasiswa memilih <strong>satu spesifik model AI</strong> (contoh: ChatGPT, Midjourney, GitHub Copilot, dll).</li>
+                <li>Siapkan slide presentasi singkat dengan alokasi waktu maksimal <strong>5 menit</strong> per mahasiswa.</li>
+                <li>Gunakan bahasa yang akademis, sertakan referensi, namun tetap komunikatif.</li>
+                <li>Fokus pada analisis kritis terhadap dampak model tersebut di sektor pendidikan atau industri.</li>
+              </ul>
+            </div>
+
+            <h3 className="font-bold text-slate-800 mb-4">Template Struktur Slide yang Disarankan</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              <div className="bg-white p-4 rounded-lg border border-slate-200 border-l-4 border-l-blue-500">
+                <h4 className="font-bold text-sm text-slate-800">Slide 1: Latar Belakang</h4>
+                <p className="text-xs text-slate-500 mt-1">Siapa pembuatnya, kapan dirilis, dan arsitektur dasar yang digunakan.</p>
+              </div>
+              <div className="bg-white p-4 rounded-lg border border-slate-200 border-l-4 border-l-indigo-500">
+                <h4 className="font-bold text-sm text-slate-800">Slide 2: Analisis Teknis</h4>
+                <p className="text-xs text-slate-500 mt-1">Keunggulan utama, keterbatasan (bias, halusinasi), dan cara kerja esensial.</p>
+              </div>
+              <div className="bg-white p-4 rounded-lg border border-slate-200 border-l-4 border-l-purple-500">
+                <h4 className="font-bold text-sm text-slate-800">Slide 3: Dampak & Implikasi</h4>
+                <p className="text-xs text-slate-500 mt-1">Analisis kritis mengenai integrasinya dalam lanskap teknologi pendidikan/industri.</p>
+              </div>
+            </div>
+
+            <ReflectionBox title="Persiapan Diskusi">
+              "Mengapa Anda memilih model tersebut untuk dipresentasikan? Apakah karena kepopulerannya di media massa, relevansinya yang tinggi dengan rencana penelitian skripsi/tesis Anda, atau karena memiliki dampak sosial dan etika yang patut dikritisi?"
+            </ReflectionBox>
+          </div>
+        </section>
+
+        {/* SECTION KUIS & SERTIFIKAT */}
+        <section id="kuis" className="scroll-mt-24 pb-10">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Kuis Evaluasi Pemahaman</h2>
+            <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
+          </div>
+
+          {!quizStarted && !showResult && (
+            <div className="bg-white border border-slate-200 rounded-2xl p-10 text-center max-w-2xl mx-auto shadow-sm">
+              <BookOpen className="w-16 h-16 text-blue-500 mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">Uji Pengetahuan Konseptual Anda</h3>
+              <p className="text-slate-600 text-sm mb-6">Terdapat 5 soal pilihan ganda yang menguji pemahaman Anda terkait sejarah AI, arsitektur Transformer, dan LLM.</p>
+              <button 
+                onClick={() => setQuizStarted(true)}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-lg transition-colors"
+              >
+                Mulai Kuis
+              </button>
+            </div>
+          )}
+
+          {quizStarted && !showResult && (
+            <div className="bg-white border border-slate-200 rounded-2xl p-8 max-w-3xl mx-auto shadow-sm">
+              <div className="flex justify-between items-center mb-6 text-sm font-medium text-slate-500">
+                <span>Pertanyaan {currentQuestion + 1} dari {quizQuestions.length}</span>
+                <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Skor: {score}</span>
+              </div>
+              
+              <div className="w-full bg-slate-100 h-2 rounded-full mb-8 overflow-hidden">
+                <div 
+                  className="bg-blue-600 h-full transition-all duration-300" 
+                  style={{ width: `${((currentQuestion) / quizQuestions.length) * 100}%` }}
+                ></div>
+              </div>
+
+              <h3 className="text-lg font-bold text-slate-900 mb-6 leading-relaxed">
+                {quizQuestions[currentQuestion].question}
+              </h3>
+
+              <div className="space-y-3">
+                {quizQuestions[currentQuestion].options.map((option, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleAnswer(idx)}
+                    className="w-full text-left p-4 border border-slate-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all text-sm text-slate-700 font-medium"
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {showResult && (
+            <div className="bg-white border border-slate-200 rounded-2xl p-10 text-center max-w-2xl mx-auto shadow-sm">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 text-green-600 rounded-full mb-4">
+                <Award className="w-10 h-10" />
+              </div>
+              <h3 className="text-2xl font-bold mb-2">Kuis Selesai!</h3>
+              <p className="text-slate-600 mb-6">Anda mendapatkan skor {score} dari {quizQuestions.length} ({score * 20} / 100).</p>
+              
+              <div className="flex justify-center gap-4">
+                <button 
+                  onClick={resetQuiz}
+                  className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-6 py-2.5 rounded-lg transition-colors"
+                >
+                  Ulangi Kuis
+                </button>
+                {score >= 3 && (
+                  <button 
+                    onClick={() => setShowCertificate(true)}
+                    className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2.5 rounded-lg transition-colors"
+                  >
+                    Klaim Sertifikat Digital
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
+        </section>
+      </main>
+
+      {/* Certificate Modal */}
+      {showCertificate && (
+        <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-1 relative">
+            <button 
+              onClick={() => setShowCertificate(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-800 font-bold z-10"
+            >
+              ✕
+            </button>
+            <div className="border-4 border-double border-slate-200 p-8 text-center m-2 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-blue-100 rounded-full -ml-16 -mt-16 opacity-50"></div>
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-indigo-100 rounded-full -mr-16 -mb-16 opacity-50"></div>
+              
+              <Award className="w-16 h-16 mx-auto text-yellow-500 mb-4" />
+              <h2 className="text-3xl font-serif font-bold text-slate-900 mb-2">Sertifikat Penyelesaian</h2>
+              <p className="text-sm text-slate-500 uppercase tracking-widest mb-8">Modul Pembelajaran AI Interaktif</p>
+              
+              <p className="text-slate-700 mb-2">Diberikan kepada:</p>
+              <h3 className="text-2xl font-bold text-blue-900 mb-6 border-b-2 border-slate-100 pb-2 inline-block px-10">Mahasiswa Cemerlang</h3>
+              
+              <p className="text-sm text-slate-600 max-w-md mx-auto mb-10 leading-relaxed">
+                Telah berhasil menyelesaikan pembelajaran dan asesmen konseptual mengenai Sejarah, Perkembangan, dan Arsitektur Dasar Artificial Intelligence.
+              </p>
+              
+              <div className="flex justify-between items-end border-t border-slate-100 pt-6 px-4">
+                <div className="text-left">
+                  <div className="w-32 h-px bg-slate-300 mb-2"></div>
+                  <p className="text-xs text-slate-500 font-medium">Instruktur Mata Kuliah</p>
+                </div>
+                <div className="text-right">
+                  <div className="w-32 h-px bg-slate-300 mb-2 ml-auto"></div>
+                  <p className="text-xs text-slate-500 font-medium">{new Date().toLocaleDateString('id-ID')}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Footer */}
+      <footer className="bg-slate-900 border-t border-slate-800 text-slate-400 py-12 mt-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8">
+          <div>
+            <div className="flex items-center gap-2 font-bold text-xl text-white mb-4">
+              <BrainCircuit className="w-6 h-6 text-blue-500" />
+              <span>EduAI<span className="text-blue-500">.</span></span>
+            </div>
+            <p className="text-sm text-slate-500 max-w-xs">
+              Platform pembelajaran mandiri untuk kajian teknologi pendidikan berbasis Artificial Intelligence.
+            </p>
+          </div>
+          <div className="md:text-right">
+            <h4 className="text-white font-semibold mb-4">Referensi Akademik Utama:</h4>
+            <ul className="space-y-2 text-sm text-slate-500">
+              <li>Vaswani, A., et al. (2017). <em>Attention is All You Need</em>. NeurIPS.</li>
+              <li>Devlin, J., et al. (2018). <em>BERT: Pre-training of Deep Bidirectional Transformers</em>.</li>
+              <li>Brown, T., et al. (2020). <em>Language Models are Few-Shot Learners</em>. NeurIPS.</li>
+            </ul>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-center md:text-left flex flex-col md:flex-row justify-between">
+          <p>&copy; 2026 EduAI Learning Module. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+// Icons Component (Mocked mapping for standalone running without full lucide package if needed, 
+// though lucide-react works well in standard setups).
+function Layers(props) {
+  return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="m12 2 10 6-10 6L2 8z"/><path d="m2 14 10 6 10-6"/><path d="m2 17.5 10 6 10-6"/></svg>;
+}
+function Sparkles(props) {
+  return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>;
+}
+function Gamepad2(props) {
+  return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>;
+}
