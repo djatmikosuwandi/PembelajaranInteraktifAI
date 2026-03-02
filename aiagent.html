@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agents: Masa Depan Pembelajaran Cerdas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lexend:wght@400;600;700&display=swap');
+
+        :root {
+            --primary: #1e3a8a; /* Deep Blue */
+            --secondary: #3b82f6; /* Modern Blue */
+            --accent: #6366f1; /* Indigo */
+            --bg-light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .font-heading {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent),
+                        radial-gradient(circle at bottom left, rgba(99, 102, 241, 0.05), transparent);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .reflection-box {
+            border-left: 4px solid var(--secondary);
+            background: #eff6ff;
+        }
+
+        .step-node {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            background: var(--primary);
+        }
+
+        .line-flow {
+            height: 2px;
+            background: #cbd5e1;
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navbar -->
+    <nav class="glass-nav fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-brain text-white text-sm"></i>
+                    </div>
+                    <span class="font-bold text-blue-900 tracking-tight text-lg">AI-EduHub</span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                    <a href="#hero" class="hover:text-blue-600 transition">Beranda</a>
+                    <a href="#llm" class="hover:text-blue-600 transition">Konsep LLM</a>
+                    <a href="#agent" class="hover:text-blue-600 transition">AI Agent</a>
+                    <a href="#rag" class="hover:text-blue-600 transition">RAG</a>
+                    <a href="#dify" class="hover:text-blue-600 transition">Dify.ai</a>
+                    <a href="#tugas" class="text-blue-800 font-bold border-b-2 border-blue-800">Tugas</a>
+                </div>
+                <button class="bg-blue-900 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-800 transition shadow-md">
+                    Diskusi Kelas
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-gradient pt-32 pb-20 px-4">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 text-xs font-bold mb-6 tracking-widest uppercase">Teknologi Pendidikan 4.0</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
+                AI Agents: <span class="gradient-text">Dari Chatbot hingga Sistem Cerdas</span> Berbasis LLM
+            </h1>
+            <p class="text-lg text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+                Eksplorasi mendalam mengenai evolusi Artificial Intelligence. Dari sekadar menjawab pertanyaan hingga menjadi agen otonom yang mampu merencanakan, mengambil keputusan, dan menggunakan alat eksternal dalam konteks instruksional.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#llm" class="bg-blue-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-800 transition shadow-lg flex items-center justify-center gap-2">
+                    Mulai Belajar <i class="fas fa-arrow-right text-sm"></i>
+                </a>
+                <a href="#dify" class="bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-xl font-bold hover:bg-slate-50 transition shadow-sm flex items-center justify-center gap-2">
+                    Eksplorasi Dify.ai
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: LLM -->
+    <section id="llm" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-blue-950 mb-6">Apa Itu LLM dan Bagaimana Cara Kerjanya?</h2>
+                    <div class="space-y-6 text-slate-700 leading-relaxed">
+                        <p>
+                            <strong class="text-blue-900">Large Language Model (LLM)</strong> adalah algoritma deep learning yang dilatih pada dataset teks skala masif. Ia menggunakan arsitektur <span class="italic font-semibold">Transformer</span> untuk memahami konteks dan hubungan antar kata.
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex gap-3">
+                                <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                                <span><strong>Fondasi Transformer:</strong> Mekanisme "Attention" yang memungkinkan model fokus pada bagian kalimat yang paling relevan.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                                <span><strong>Pre-training:</strong> Belajar pola bahasa secara umum dari internet.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                                <span><strong>Probabilistic Prediction:</strong> Memprediksi token (potongan kata) berikutnya berdasarkan probabilitas statistik tertinggi.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Diagram LLM -->
+                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-inner">
+                    <h3 class="text-center font-bold text-slate-800 mb-8 uppercase text-xs tracking-widest">Alur Kerja Sistem</h3>
+                    <div class="flex items-center justify-center">
+                        <div class="flex flex-col items-center">
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-200 text-sm font-bold w-32 text-center">Input Text</div>
+                            <div class="h-8 w-px bg-slate-300"></div>
+                            <div class="p-4 bg-blue-100 rounded-xl shadow-sm border border-blue-200 text-sm font-bold w-32 text-center text-blue-800">Tokenization</div>
+                            <div class="h-8 w-px bg-slate-300"></div>
+                            <div class="p-6 bg-blue-900 rounded-2xl shadow-lg border border-blue-800 text-sm font-bold w-40 text-center text-white">
+                                <i class="fas fa-microchip mb-2"></i><br>LLM Core<br><span class="text-[10px] font-normal opacity-70">Transformer Engine</span>
+                            </div>
+                            <div class="h-8 w-px bg-slate-300"></div>
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-slate-200 text-sm font-bold w-32 text-center">Output Prediction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsection: Chatbot -->
+            <div class="mt-20 grid md:grid-cols-2 gap-8">
+                <div class="p-8 border border-slate-200 rounded-2xl bg-white shadow-sm">
+                    <h4 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-comments text-blue-500"></i> Chatbot Berbasis LLM
+                    </h4>
+                    <p class="text-slate-600 text-sm mb-4">Chatbot generasi saat ini mengandalkan kemampuan prompt untuk merespon. Namun, mereka cenderung <strong>stateless</strong> secara default tanpa manajemen context yang baik.</p>
+                    <div class="bg-slate-50 p-3 rounded-lg text-xs text-slate-500 italic">
+                        "Kekuatan utama terletak pada kreativitas, namun kelemahan ada pada akurasi fakta statis."
+                    </div>
+                </div>
+                <div class="reflection-box p-8 rounded-2xl">
+                    <h4 class="text-lg font-bold text-blue-900 mb-4 italic">Box Refleksi:</h4>
+                    <p class="text-blue-800 mb-4">"Apa perbedaan mendasar antara chatbot tradisional berbasis aturan (rule-based) dengan chatbot modern berbasis LLM dalam konteks fleksibilitas jawaban?"</p>
+                    <textarea class="w-full p-4 rounded-xl border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" placeholder="Tulis pemikiran singkat Anda di sini..."></textarea>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: AI Agents -->
+    <section id="agent" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-blue-950 mb-4">Dari Chatbot ke AI Agent</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">AI Agent melampaui sekadar percakapan. Mereka adalah sistem yang memiliki <strong>agency</strong>—kemampuan untuk beraksi secara mandiri mencapai tujuan.</p>
+            </div>
+
+            <!-- Components of AI Agent -->
+            <div class="grid md:grid-cols-4 gap-6 mb-16">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover text-center">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-brain text-blue-600"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">Brain (LLM)</h5>
+                    <p class="text-xs text-slate-500 leading-relaxed">Pusat pemrosesan bahasa, penalaran, dan pemahaman instruksi.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover text-center">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-hdd text-indigo-600"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">Memory</h5>
+                    <p class="text-xs text-slate-500 leading-relaxed">Menyimpan interaksi jangka pendek dan pengetahuan jangka panjang.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover text-center">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tools text-emerald-600"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">Tool Usage</h5>
+                    <p class="text-xs text-slate-500 leading-relaxed">Kemampuan memanggil API, melakukan browsing, atau menulis kode.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover text-center">
+                    <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map-signs text-amber-600"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">Planning</h5>
+                    <p class="text-xs text-slate-500 leading-relaxed">Memecah tugas kompleks menjadi langkah-langkah kecil yang logis.</p>
+                </div>
+            </div>
+
+            <!-- Agent Flow Diagram -->
+            <div class="bg-blue-950 p-10 rounded-[2rem] text-white shadow-2xl relative overflow-hidden mb-12">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-800 rounded-full opacity-20 -mr-20 -mt-20"></div>
+                <h4 class="text-xl font-bold mb-10 text-center flex items-center justify-center gap-3">
+                    <span class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+                    Arsitektur Berpikir Agentic
+                </h4>
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                    <div class="flex flex-col items-center">
+                        <div class="text-xs font-semibold mb-2 text-blue-300">USER</div>
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20"><i class="fas fa-user"></i></div>
+                    </div>
+                    <div class="line-flow hidden md:block opacity-30"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-xs font-semibold mb-2 text-blue-300">PLANNING</div>
+                        <div class="bg-blue-600 p-4 rounded-xl shadow-lg shadow-blue-900/50"><i class="fas fa-list-check"></i></div>
+                    </div>
+                    <div class="line-flow hidden md:block opacity-30"></div>
+                    <div class="flex flex-col items-center scale-125">
+                        <div class="text-xs font-semibold mb-2 text-blue-300">BRAIN (LLM)</div>
+                        <div class="bg-white p-5 rounded-2xl text-blue-950 shadow-xl"><i class="fas fa-microchip text-xl"></i></div>
+                    </div>
+                    <div class="line-flow hidden md:block opacity-30"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-xs font-semibold mb-2 text-blue-300">TOOLS/API</div>
+                        <div class="bg-emerald-500 p-4 rounded-xl shadow-lg shadow-emerald-900/50"><i class="fas fa-plug"></i></div>
+                    </div>
+                    <div class="line-flow hidden md:block opacity-30"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-xs font-semibold mb-2 text-blue-300">OUTPUT</div>
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20"><i class="fas fa-paper-plane"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4">
+                    <h4 class="text-xl font-bold">Implementasi dalam Pendidikan:</h4>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <p class="font-bold text-sm">AI Research Assistant</p>
+                        <p class="text-xs text-slate-500">Mencari jurnal, merangkum, dan membuat sitasi otomatis.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-indigo-500">
+                        <p class="font-bold text-sm">AI Curriculum Designer</p>
+                        <p class="text-xs text-slate-500">Menganalisis standar kompetensi dan menyusun silabus interaktif.</p>
+                    </div>
+                </div>
+                <div class="p-8 bg-blue-900 rounded-3xl text-white">
+                    <h4 class="text-lg font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-lightbulb text-amber-400"></i> Critical Thinking:
+                    </h4>
+                    <p class="text-sm text-blue-100 mb-6 leading-relaxed">"Jika AI Agent dapat mengambil keputusan logis secara mandiri, sejauh mana peran guru/dosen dalam mengontrol 'bias pedagogis' yang mungkin dihasilkan oleh agent tersebut?"</p>
+                    <button class="w-full py-3 bg-white text-blue-900 rounded-xl font-bold hover:bg-blue-50 transition">Kirim Pendapat Saya</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: RAG -->
+    <section id="rag" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl font-bold text-blue-950 mb-6 uppercase tracking-tight">Retrieval-Augmented Generation (RAG)</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Pernah mendengar istilah <strong>"AI Hallucination"</strong>? RAG adalah solusi teknis untuk mengatasinya. Alih-alih hanya mengandalkan ingatan model, RAG memberikan AI akses ke "perpustakaan pribadi" (database dokumen Anda).
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition">
+                            <div class="bg-blue-100 p-3 rounded-lg"><i class="fas fa-database text-blue-600"></i></div>
+                            <div>
+                                <h6 class="font-bold text-slate-800">Knowledge Injection</h6>
+                                <p class="text-sm text-slate-500">Menyuntikkan data terbaru tanpa harus melatih ulang (retrain) model.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition">
+                            <div class="bg-indigo-100 p-3 rounded-lg"><i class="fas fa-link text-indigo-600"></i></div>
+                            <div>
+                                <h6 class="font-bold text-slate-800">Vector Embeddings</h6>
+                                <p class="text-sm text-slate-500">Mengubah teks menjadi angka (vektor) agar mesin bisa mencari kemiripan makna.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 w-full">
+                    <!-- RAG Visualizer -->
+                    <div class="bg-slate-50 rounded-3xl p-8 border border-slate-200">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex justify-between items-center text-[10px] font-bold text-slate-400 mb-2">
+                                <span>USER QUESTION</span>
+                                <i class="fas fa-chevron-right"></i>
+                                <span>RETRIEVAR</span>
+                                <i class="fas fa-chevron-right"></i>
+                                <span>LLM RESPONSE</span>
+                            </div>
+                            <div class="flex flex-wrap justify-center gap-4">
+                                <div class="p-3 bg-white rounded-lg border shadow-sm text-xs font-bold">"Siapa nama rektor saat ini?"</div>
+                                <div class="w-full flex justify-center py-2"><i class="fas fa-arrow-down text-blue-300"></i></div>
+                                <div class="flex gap-2 items-center">
+                                    <div class="p-3 bg-indigo-500 text-white rounded-lg shadow-md text-xs font-bold flex items-center gap-2">
+                                        <i class="fas fa-search-plus"></i> Search Vector DB
+                                    </div>
+                                    <div class="p-3 bg-blue-100 text-blue-800 rounded-lg text-[10px]">Found: Document_A.pdf</div>
+                                </div>
+                                <div class="w-full flex justify-center py-2"><i class="fas fa-arrow-down text-blue-300"></i></div>
+                                <div class="p-4 bg-blue-900 text-white rounded-xl shadow-lg w-full text-sm">
+                                    <span class="opacity-50 text-[10px] block mb-1 uppercase">Final Augmented Answer</span>
+                                    "Berdasarkan dokumen yang ditemukan, rektor saat ini adalah Prof. Dr. [Nama]..."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 reflection-box p-8 rounded-2xl">
+                <h4 class="text-lg font-bold text-blue-900 mb-4">Refleksi:</h4>
+                <p class="text-blue-800 mb-2">"Mengapa sistem RAG dianggap jauh lebih kredibel untuk aplikasi perpustakaan digital dibandingkan ChatGPT standar?"</p>
+                <p class="text-xs text-blue-600/70 mb-4">*Hint: Pikirkan tentang Cut-off knowledge dan verifikasi sumber.</p>
+                <div class="flex gap-2">
+                    <input type="text" class="flex-1 p-3 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm" placeholder="Jawaban singkat...">
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-bold">Kirim</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Dify.ai -->
+    <section id="dify" class="py-20 bg-slate-900 text-white overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2">
+                    <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-blue-500/20">
+                        <i class="fas fa-rocket text-2xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold mb-6 leading-tight">Membangun AI Agent dengan Dify.ai</h2>
+                    <p class="text-blue-200 mb-8 leading-relaxed">
+                        <a href="https://dify.ai/" target="_blank" class="text-white underline font-bold">Dify.ai</a> adalah platform open-source <span class="text-blue-400 font-mono">No-Code/Low-Code</span> yang memudahkan pengembang dan pendidik membangun aplikasi LLM kompleks tanpa harus menulis kode python yang rumit.
+                    </p>
+                    <ul class="grid sm:grid-cols-2 gap-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-blue-100">
+                            <i class="fas fa-project-diagram text-blue-400"></i> Visual Workflow
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-blue-100">
+                            <i class="fas fa-book-open text-blue-400"></i> RAG Knowledge Base
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-blue-100">
+                            <i class="fas fa-microchip text-blue-400"></i> Multi-Model Support
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-blue-100">
+                            <i class="fas fa-share-alt text-blue-400"></i> Easy Deployment
+                        </li>
+                    </ul>
+                    <button class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold transition shadow-lg flex items-center gap-3">
+                        Eksplorasi Dify.ai <i class="fas fa-external-link-alt text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="lg:w-1/2 w-full">
+                    <div class="relative">
+                        <div class="bg-slate-800 border border-slate-700 p-1 rounded-xl shadow-2xl">
+                            <div class="bg-slate-900 rounded-lg p-6 min-h-[300px] flex flex-col justify-center items-center">
+                                <!-- Placeholder Image Concept -->
+                                <div class="text-center">
+                                    <div class="text-slate-500 text-5xl mb-4"><i class="fas fa-image"></i></div>
+                                    <p class="text-slate-400 font-mono text-xs uppercase tracking-widest">Screenshot Workflow Interface</p>
+                                    <div class="mt-4 flex gap-2 justify-center">
+                                        <div class="w-12 h-2 bg-slate-700 rounded"></div>
+                                        <div class="w-8 h-2 bg-slate-700 rounded"></div>
+                                        <div class="w-16 h-2 bg-slate-700 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Floating Tutorial Card -->
+                        <div class="absolute -bottom-10 -left-10 bg-white text-slate-900 p-6 rounded-2xl shadow-2xl hidden md:block max-w-xs border border-blue-100">
+                            <h6 class="font-bold text-sm mb-3 text-blue-900 uppercase tracking-tighter">Tutorial Singkat:</h6>
+                            <ol class="text-[10px] space-y-2 text-slate-600">
+                                <li class="flex gap-2"><span class="font-bold text-blue-600">01</span> Buat aplikasi baru (Chat / Workflow)</li>
+                                <li class="flex gap-2"><span class="font-bold text-blue-600">02</span> Pilih Model (GPT-4 / Claude / Llama)</li>
+                                <li class="flex gap-2"><span class="font-bold text-blue-600">03</span> Unggah dokumen ke 'Knowledge' (RAG)</li>
+                                <li class="flex gap-2"><span class="font-bold text-blue-600">04</span> Tarik garis antar blok proses</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-24 p-8 bg-blue-800/20 border border-blue-700/50 rounded-2xl">
+                <p class="text-blue-300 italic text-center text-sm">"Dalam konteks teknologi pendidikan, platform no-code seperti Dify memungkinkan desainer instruksional fokus pada 'logika belajar' daripada pusing dengan sintaks pemrograman."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Tugas -->
+    <section id="tugas" class="py-24 bg-white relative">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="bg-slate-50 rounded-[3rem] p-12 border-2 border-dashed border-blue-200 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-16 h-16 bg-blue-900 rounded-full flex items-center justify-center text-white shadow-xl">
+                            <i class="fas fa-users text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold text-slate-900 leading-tight">Tugas Kelompok:</h2>
+                            <p class="text-blue-700 font-bold uppercase tracking-widest text-xs">Presentasi Jurnal AI Agents</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 mb-10">
+                        <h4 class="font-bold text-lg mb-4 text-blue-950">Instruksi Pengerjaan:</h4>
+                        <ul class="space-y-4 text-slate-600 text-sm">
+                            <li class="flex gap-3">
+                                <span class="w-6 h-6 bg-blue-100 rounded-full text-blue-700 flex items-center justify-center text-[10px] font-bold shrink-0">1</span>
+                                <span>Mahasiswa dibagi menjadi <strong>6 kelompok</strong> utama.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="w-6 h-6 bg-blue-100 rounded-full text-blue-700 flex items-center justify-center text-[10px] font-bold shrink-0">2</span>
+                                <span>Pilih 1 jurnal ilmiah (internasional/nasional) tentang implementasi AI Agents.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="w-6 h-6 bg-blue-100 rounded-full text-blue-700 flex items-center justify-center text-[10px] font-bold shrink-0">3</span>
+                                <span>Bedah arsitektur sistem (Apakah menggunakan RAG? Model apa yang dipakai?).</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="w-6 h-6 bg-blue-100 rounded-full text-blue-700 flex items-center justify-center text-[10px] font-bold shrink-0">4</span>
+                                <span>Analisis potensi penerapannya di konteks pendidikan Indonesia.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-4 mb-10">
+                        <button class="bg-blue-900 text-white p-4 rounded-2xl font-bold hover:bg-blue-800 transition flex items-center justify-center gap-3">
+                            <i class="fas fa-book"></i> Baca Jurnal
+                        </button>
+                        <button class="bg-white border-2 border-blue-900 text-blue-900 p-4 rounded-2xl font-bold hover:bg-blue-50 transition flex items-center justify-center gap-3">
+                            <i class="fas fa-file-powerpoint"></i> Persiapan Presentasi
+                        </button>
+                    </div>
+
+                    <div class="p-6 bg-amber-50 rounded-2xl border border-amber-200">
+                        <h5 class="text-amber-800 font-bold text-sm mb-2 flex items-center gap-2">
+                            <i class="fas fa-question-circle"></i> Tantangan Refleksi Akhir:
+                        </h5>
+                        <p class="text-xs text-amber-700 italic">"Apakah AI Agent yang dibahas pada jurnal pilihan Anda benar-benar autonomous (mandiri) atau masih sangat bergantung pada intervensi manusia?"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 py-12 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-xs mb-4 uppercase tracking-widest">&copy; 2024 Mata Kuliah Inovasi Teknologi Pendidikan</p>
+            <div class="flex justify-center gap-6 text-slate-300">
+                <i class="fab fa-instagram hover:text-blue-500 cursor-pointer"></i>
+                <i class="fab fa-linkedin hover:text-blue-700 cursor-pointer"></i>
+                <i class="fab fa-github hover:text-slate-900 cursor-pointer"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling enhancement
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple scroll reveal effect (optional)
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>
