@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Generation - Modul Pembelajaran Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+        :root {
+            --primary-dark: #0f172a;
+            --accent-blue: #3b82f6;
+            --gradient-main: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #334155;
+            background-color: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .hero-section {
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent),
+                        radial-gradient(circle at bottom left, rgba(30, 58, 138, 0.05), transparent);
+        }
+
+        .gradient-text {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-interactive {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card-interactive:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            border-color: #3b82f6;
+        }
+
+        .reflection-box {
+            border-left: 4px solid #3b82f6;
+            background: #f8fafc;
+        }
+
+        .flow-line {
+            height: 2px;
+            background: #e2e8f0;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .flow-line::after {
+            content: '➔';
+            position: absolute;
+            right: -10px;
+            top: -11px;
+            color: #cbd5e1;
+        }
+
+        .tool-tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 99px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Sticky Navbar -->
+    <nav class="glass-nav fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
+                        <i class="fas fa-video text-white"></i>
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-900">AI<span class="text-blue-600">Video</span>Lab</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
+                    <a href="#intro" class="hover:text-blue-600 transition">Pengantar</a>
+                    <a href="#tech" class="hover:text-blue-600 transition">Teknologi</a>
+                    <a href="#tools" class="hover:text-blue-600 transition">Platform</a>
+                    <a href="#models" class="hover:text-blue-600 transition">Model Terbaru</a>
+                    <button class="bg-blue-600 text-white px-5 py-2.5 rounded-full hover:bg-blue-700 transition shadow-md">Diskusi Kelas</button>
+                </div>
+                <div class="md:hidden">
+                    <i class="fas fa-bars text-2xl text-slate-600"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <section class="hero-section pt-40 pb-24 px-4 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div class="text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 mb-6">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    <span class="text-xs font-bold text-blue-700 uppercase tracking-widest">Modul Teknologi Pendidikan</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+                    AI Video Generation: <br><span class="gradient-text">Masa Depan Produksi Video</span>
+                </h1>
+                <p class="text-lg text-slate-600 mb-10 leading-relaxed max-w-xl">
+                    Dari Text-to-Video hingga simulasi dunia digital. Pelajari bagaimana sistem AI mampu menciptakan realitas visual secara otomatis dari teks, gambar, dan skenario.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#intro" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold hover:bg-blue-700 transition shadow-xl shadow-blue-200 flex items-center gap-2">
+                        Mulai Belajar <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#tools" class="bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 transition flex items-center gap-2">
+                        Eksplorasi Tools
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="relative z-10 bg-white p-4 rounded-[2rem] shadow-2xl border border-slate-100">
+                    <div class="aspect-video bg-slate-100 rounded-2xl overflow-hidden flex items-center justify-center relative group">
+                        <i class="fas fa-play-circle text-6xl text-blue-600/20 group-hover:scale-110 transition duration-500"></i>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <p class="text-xs font-bold uppercase tracking-widest opacity-80 mb-1">Generated by Sora</p>
+                            <p class="font-semibold">"Cinematic trailer of an explorer..."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -top-6 -right-6 w-32 h-32 bg-blue-100 rounded-full blur-3xl opacity-60"></div>
+                <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-indigo-100 rounded-full blur-3xl opacity-60"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Section: Pengantar -->
+    <section id="intro" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Apa Itu AI Video Generation?</h2>
+                <div class="w-20 h-1.5 bg-blue-600 mx-auto rounded-full mb-8"></div>
+                <p class="text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                    Teknologi yang memungkinkan komputer menghasilkan video baru menggunakan model pembelajaran mesin, memproses ribuan data visual untuk menciptakan gerakan yang koheren.
+                </p>
+            </div>
+
+            <!-- Alur Visual -->
+            <div class="bg-slate-50 rounded-3xl p-10 mb-16 border border-slate-100">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8 max-w-4xl mx-auto">
+                    <div class="text-center w-full md:w-1/4">
+                        <div class="w-16 h-16 bg-white rounded-2xl shadow-md flex items-center justify-center mx-auto mb-4 border border-blue-100">
+                            <i class="fas fa-keyboard text-blue-600 text-xl"></i>
+                        </div>
+                        <p class="font-bold text-sm text-slate-800 uppercase">Input Prompt</p>
+                    </div>
+                    <div class="flow-line hidden md:block"></div>
+                    <div class="text-center w-full md:w-1/4">
+                        <div class="w-16 h-16 bg-blue-600 rounded-2xl shadow-lg shadow-blue-200 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-brain text-white text-xl"></i>
+                        </div>
+                        <p class="font-bold text-sm text-slate-800 uppercase">AI Model</p>
+                    </div>
+                    <div class="flow-line hidden md:block"></div>
+                    <div class="text-center w-full md:w-1/4">
+                        <div class="w-16 h-16 bg-white rounded-2xl shadow-md flex items-center justify-center mx-auto mb-4 border border-blue-100">
+                            <i class="fas fa-film text-blue-600 text-xl"></i>
+                        </div>
+                        <p class="font-bold text-sm text-slate-800 uppercase">Output Video</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-2xl bg-white border border-slate-100 hover:border-blue-200 transition">
+                    <h4 class="font-bold text-slate-900 mb-2">Video Pembelajaran</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Memvisualisasikan konsep abstrak menjadi konten edukasi yang dinamis.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-white border border-slate-100 hover:border-blue-200 transition">
+                    <h4 class="font-bold text-slate-900 mb-2">Simulasi Visual</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Menciptakan skenario dunia fisik tanpa perlu rekaman kamera asli.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-white border border-slate-100 hover:border-blue-200 transition">
+                    <h4 class="font-bold text-slate-900 mb-2">Animasi Konsep</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Mengubah diagram kaku menjadi gerakan yang membantu kognisi.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-white border border-slate-100 hover:border-blue-200 transition">
+                    <h4 class="font-bold text-slate-900 mb-2">Media Pemasaran</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Membuat konten kampanye profesional dengan efisiensi waktu tinggi.</p>
+                </div>
+            </div>
+
+            <!-- Reflection Box -->
+            <div class="mt-16 reflection-box p-8 rounded-3xl">
+                <div class="flex gap-4 items-start">
+                    <div class="bg-blue-600 text-white p-3 rounded-xl shadow-lg shadow-blue-100">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <div class="w-full">
+                        <h4 class="font-bold text-slate-900 mb-2 italic">Refleksi Kritis:</h4>
+                        <p class="text-slate-700 mb-4 leading-relaxed">
+                            “Bagaimana AI video generation dapat membantu dosen atau guru membuat media pembelajaran yang lebih menarik tanpa menguras sumber daya teknis yang besar?”
+                        </p>
+                        <textarea class="w-full p-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm bg-white" rows="2" placeholder="Tuliskan pendapat Anda..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Section: Teknologi -->
+    <section id="tech" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">Teknologi di Balik AI Video</h2>
+                    <p class="text-slate-600 mb-10 leading-relaxed">
+                        Menghasilkan video jauh lebih kompleks dibanding gambar karena melibatkan dimensi **waktu (temporal)**. Setiap frame harus konsisten dengan frame sebelumnya.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex gap-4 items-start p-4 rounded-2xl hover:bg-white hover:shadow-sm transition cursor-default group">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Diffusion Models</h4>
+                                <p class="text-sm text-slate-500">Proses 'denoising' bertahap untuk menghasilkan visual kualitas tinggi dari titik-titik acak.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start p-4 rounded-2xl hover:bg-white hover:shadow-sm transition cursor-default group">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Multimodal AI</h4>
+                                <p class="text-sm text-slate-500">Menghubungkan semantik teks dengan representasi piksel secara akurat.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start p-4 rounded-2xl hover:bg-white hover:shadow-sm transition cursor-default group">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Transformer Architecture</h4>
+                                <p class="text-sm text-slate-500">Memproses urutan frame untuk menjaga konsistensi objek selama durasi video.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="bg-blue-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-2xl">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-800 rounded-full blur-2xl opacity-50"></div>
+                        <h4 class="text-lg font-bold mb-8 text-center uppercase tracking-widest text-blue-300">Arsitektur Generatif</h4>
+                        <div class="flex flex-col gap-4">
+                            <div class="bg-white/10 border border-white/20 p-4 rounded-2xl flex items-center justify-between">
+                                <span class="text-sm font-semibold italic">User Prompt</span>
+                                <i class="fas fa-long-arrow-alt-down text-blue-400"></i>
+                            </div>
+                            <div class="bg-white/10 border border-white/20 p-4 rounded-2xl flex items-center justify-between">
+                                <span class="text-sm font-semibold uppercase tracking-wider">Multimodal Encoder</span>
+                                <i class="fas fa-long-arrow-alt-down text-blue-400"></i>
+                            </div>
+                            <div class="bg-blue-600 border border-blue-400 p-6 rounded-3xl flex flex-col items-center gap-2 shadow-inner">
+                                <i class="fas fa-microchip text-2xl"></i>
+                                <span class="font-bold">GENERATIVE MODEL</span>
+                                <span class="text-[10px] opacity-60">Stable Video / DiT Engine</span>
+                            </div>
+                            <div class="bg-white/10 border border-white/20 p-4 rounded-2xl flex items-center justify-between">
+                                <span class="text-sm font-semibold uppercase tracking-wider">Video Output</span>
+                                <i class="fas fa-check-circle text-emerald-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 p-8 bg-blue-950 rounded-3xl text-white">
+                <div class="flex flex-col md:flex-row gap-6 items-center justify-between">
+                    <div>
+                        <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i class="fas fa-users-rays text-blue-400"></i> Forum Diskusi Kelompok</h4>
+                        <p class="text-blue-200/70 text-sm">"Menurut analisis teknologi, mengapa menghasilkan video dianggap jauh lebih kompleks dibandingkan menghasilkan gambar statis?"</p>
+                    </div>
+                    <button class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold transition whitespace-nowrap">Ikuti Diskusi</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Section: Tools -->
+    <section id="tools" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Platform AI Video Generation</h2>
+                <p class="text-slate-600">Alat bantu populer untuk mendukung produktivitas konten akademik.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Sora -->
+                <div class="card-interactive p-8 rounded-3xl bg-white flex flex-col">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-white text-2xl">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <span class="tool-tag">Advanced</span>
+                    </div>
+                    <h4 class="text-xl font-extrabold text-slate-900 mb-3">Sora (OpenAI)</h4>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">Mampu menghasilkan video realistis hingga 60 detik dengan pemahaman fisik yang mendalam.</p>
+                    <a href="#" class="text-blue-600 font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">Lihat Dokumentasi <i class="fas fa-chevron-right text-xs"></i></a>
+                </div>
+
+                <!-- Runway -->
+                <div class="card-interactive p-8 rounded-3xl bg-white flex flex-col">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-emerald-600 rounded-2xl flex items-center justify-center text-white text-2xl">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <span class="tool-tag">Pro Choice</span>
+                    </div>
+                    <h4 class="text-xl font-extrabold text-slate-900 mb-3">Runway ML</h4>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">Ecosystem lengkap untuk editing video berbasis AI dan generasi Gen-1/Gen-2.</p>
+                    <a href="#" class="text-blue-600 font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">Pelajari Gen-2 <i class="fas fa-chevron-right text-xs"></i></a>
+                </div>
+
+                <!-- Synthesia -->
+                <div class="card-interactive p-8 rounded-3xl bg-white flex flex-col">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-2xl">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <span class="tool-tag">Educational</span>
+                    </div>
+                    <h4 class="text-xl font-extrabold text-slate-900 mb-3">Synthesia</h4>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">Fokus pada AI Avatar untuk presentasi instruksional dan video tutorial tanpa kamera.</p>
+                    <a href="#" class="text-blue-600 font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">Eksplorasi Avatar <i class="fas fa-chevron-right text-xs"></i></a>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <button class="bg-slate-100 text-slate-600 px-8 py-3 rounded-xl font-bold hover:bg-slate-200 transition">Lihat Selengkapnya (HeyGen, Pika, Kaiber)</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Section: Model Terbaru -->
+    <section id="models" class="py-24 bg-slate-900 text-white overflow-hidden relative">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <h2 class="text-3xl font-bold text-center mb-16">Evolusi Model Video Generatif</h2>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Seedance -->
+                <div class="bg-slate-800/50 border border-slate-700 p-10 rounded-[2.5rem] hover:border-blue-500/50 transition">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-xl font-bold">SD</div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Seedance 1.0</h3>
+                            <p class="text-blue-400 text-sm font-mono tracking-widest">BYTEDANCE RESEARCH</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6 mb-8">
+                        <div>
+                            <h5 class="text-xs font-bold uppercase text-slate-400 mb-3 tracking-widest">Inovasi Arsitektur</h5>
+                            <p class="text-sm leading-relaxed text-slate-300">Memisahkan lapisan **Spasial dan Temporal** menggunakan *interleaved multimodal positional encoding*. Menggunakan VAE dengan kompresi *temporally causal*.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-900/50 rounded-2xl border border-slate-700">
+                                <span class="block text-2xl font-bold text-blue-400">10x</span>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold">Inferensi Lebih Cepat</span>
+                            </div>
+                            <div class="p-4 bg-slate-900/50 rounded-2xl border border-slate-700">
+                                <span class="block text-2xl font-bold text-emerald-400">Multi-Shot</span>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold">Native Support</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="text-xs font-bold uppercase text-slate-400 mb-3 tracking-widest">Fitur Unggulan</h5>
+                            <ul class="text-sm space-y-2">
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-blue-500"></i> Video 1080p (5 detik) dalam 41,4 detik</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-blue-500"></i> RLHF untuk akurasi instruksi</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-check text-blue-500"></i> Konsistensi multi-subjek</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sora -->
+                <div class="bg-white text-slate-900 p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-slate-100 rounded-full group-hover:scale-110 transition duration-700"></div>
+                    <div class="flex items-center gap-4 mb-8 relative z-10">
+                        <div class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white"><i class="fas fa-circle-notch animate-spin-slow"></i></div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Sora</h3>
+                            <p class="text-blue-600 text-sm font-mono tracking-widest uppercase">OpenAI Foundation</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 mb-8 relative z-10">
+                        <div>
+                            <h5 class="text-xs font-bold uppercase text-slate-400 mb-3 tracking-widest">Teknologi Inti</h5>
+                            <p class="text-sm leading-relaxed text-slate-600">Arsitektur **Diffusion Transformer (DiT)** dengan konsep *spacetime latent patches* (seperti token visual).</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <span class="block text-2xl font-bold text-slate-900">60 Detik</span>
+                                <span class="text-[10px] text-slate-500 uppercase font-bold">Durasi Video Maks</span>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <span class="block text-2xl font-bold text-blue-600">Simulasi</span>
+                                <span class="text-[10px] text-slate-500 uppercase font-bold">Dunia Fisik</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="text-xs font-bold uppercase text-slate-400 mb-3 tracking-widest">Keunggulan</h5>
+                            <ul class="text-sm space-y-2 text-slate-600">
+                                <li class="flex items-center gap-2"><i class="fas fa-plus text-blue-600"></i> Konsistensi objek dalam 3D</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-plus text-blue-600"></i> Pemahaman sebab-akibat fisik</li>
+                                <li class="flex items-center gap-2"><i class="fas fa-plus text-blue-600"></i> Visual sinematik realistis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="mt-20 overflow-x-auto">
+                <table class="w-full text-left border-collapse bg-slate-800/30 rounded-3xl overflow-hidden border border-slate-700">
+                    <thead>
+                        <tr class="bg-slate-800">
+                            <th class="p-6 text-sm font-bold uppercase tracking-wider text-blue-400">Fitur</th>
+                            <th class="p-6 text-sm font-bold uppercase tracking-wider">Seedance 1.0 (ByteDance)</th>
+                            <th class="p-6 text-sm font-bold uppercase tracking-wider">Sora (OpenAI)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm divide-y divide-slate-700">
+                        <tr>
+                            <td class="p-6 font-semibold text-slate-400">Fokus Utama</td>
+                            <td class="p-6">Efisiensi inferensi & kualitas multi-shot</td>
+                            <td class="p-6">Durasi panjang & simulasi dunia</td>
+                        </tr>
+                        <tr>
+                            <td class="p-6 font-semibold text-slate-400">Arsitektur</td>
+                            <td class="p-6 font-mono text-xs">Decoupled Spatial-Temporal DiT</td>
+                            <td class="p-6 font-mono text-xs">DiT with Spacetime Patches</td>
+                        </tr>
+                        <tr>
+                            <td class="p-6 font-semibold text-slate-400">Durasi Video</td>
+                            <td class="p-6">Hingga 5 Detik (Fokus Hi-Res)</td>
+                            <td class="p-6">Hingga 60 Detik</td>
+                        </tr>
+                        <tr>
+                            <td class="p-6 font-semibold text-slate-400">Optimasi Utama</td>
+                            <td class="p-6">Distillation & RLHF</td>
+                            <td class="p-6">Scaling & Detail Captioning</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-16 bg-blue-600/10 p-8 rounded-3xl border border-blue-500/30">
+                <h4 class="font-bold text-center mb-4 italic">Diskusi Masa Depan:</h4>
+                <p class="text-center text-blue-200 text-lg mb-6">"Menurut Anda, apakah masa depan produksi video akan lebih banyak dilakukan oleh AI dibandingkan manusia secara manual?"</p>
+                <div class="flex justify-center gap-4">
+                    <button class="bg-blue-600 px-8 py-3 rounded-xl font-bold hover:bg-blue-500 transition">Dominasi AI</button>
+                    <button class="bg-white/10 px-8 py-3 rounded-xl font-bold hover:bg-white/20 transition">Kolaborasi Manusia-AI</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 py-20 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-blue-700 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-video text-white text-xs"></i>
+                        </div>
+                        <span class="text-lg font-extrabold text-slate-900">AI Video Lab</span>
+                    </div>
+                    <p class="text-sm text-slate-500 leading-relaxed italic">Platform pembelajaran mandiri untuk mahasiswa Teknologi Pendidikan guna memahami disrupsi AI pada industri konten visual.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-6 uppercase tracking-widest text-xs">Referensi Riset</h5>
+                    <ul class="text-sm text-slate-500 space-y-3">
+                        <li><a href="#" class="hover:text-blue-600">OpenAI Sora Documentation</a></li>
+                        <li><a href="#" class="hover:text-blue-600">ByteDance Seedance 1.0 Report</a></li>
+                        <li><a href="#" class="hover:text-blue-600">Diffusion Models for Video Generation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-slate-900 mb-6 uppercase tracking-widest text-xs">Navigasi</h5>
+                    <ul class="text-sm text-slate-500 space-y-3">
+                        <li><a href="#intro" class="hover:text-blue-600 transition">Modul Pengantar</a></li>
+                        <li><a href="#tech" class="hover:text-blue-600 transition">Analisis Teknologi</a></li>
+                        <li><a href="#tugas" class="hover:text-blue-600 transition">Tugas Kelompok</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-200 text-center text-slate-400 text-xs">
+                <p>&copy; 2024 Modul Pembelajaran AI – Program Studi Teknologi Pendidikan. <br>Dikembangkan untuk tujuan akademik.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll implementation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple scroll spy effect for navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
+            }
+        });
+    </script>
+</body>
+</html>
